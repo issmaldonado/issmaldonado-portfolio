@@ -1,0 +1,36 @@
+---
+title: "Data_Wrangling"
+editor: visual
+---
+
+# Import Libraries
+
+```{r}
+#| label: Choose libraries
+library(stringr)
+library(purrr)
+
+```
+
+# Import Data Sets
+
+```{r}
+#| label: Import Data sets
+library(readxl)
+FY2006 <- read_excel("Data/06_FY2006_County_Town.xls")
+Fy2007 <- read_excel("Data/07_FY2007F_County_Town.xls")
+FY2008 <- read_excel("Data/08_FMR_county_fy2008r_rdds.xls")
+FY2009 <- read_excel("Data/09_FY2009_4050_Rev_Final.xls")
+```
+
+```{r}
+Data_sets <- list.files("Data")
+files_to_load <- str_c(here::here("Data"),"/",Data_sets)
+files_imported <- purrr::map(files_to_load, readxl::read_excel)
+```
+
+# Start about wrangle
+
+```{r}
+#| label: 
+```
