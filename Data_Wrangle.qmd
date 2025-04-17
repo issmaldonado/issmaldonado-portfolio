@@ -9,27 +9,108 @@ editor: visual
 #| label: Choose libraries
 library(stringr)
 library(purrr)
-
+library(readxl)
+library(dplyr)
+library(stringr)
+library(tidyverse)
+library(janitor)
 ```
 
 # Import Data Sets
 
 ```{r}
-#| label: Import Data sets
-library(readxl)
-FY2006 <- read_excel("Data/06_FY2006_County_Town.xls")
-Fy2007 <- read_excel("Data/07_FY2007F_County_Town.xls")
-FY2008 <- read_excel("Data/08_FMR_county_fy2008r_rdds.xls")
-FY2009 <- read_excel("Data/09_FY2009_4050_Rev_Final.xls")
-```
+#| label: Download all the files within my data folder containing each of my datasets i will be using 
 
-```{r}
 Data_sets <- list.files("Data")
 files_to_load <- str_c(here::here("Data"),"/",Data_sets)
 files_imported <- purrr::map(files_to_load, readxl::read_excel)
 ```
 
-# Start about wrangle
+```{r}
+#| label: Create Data frames for each element within the files_imported list
+
+for(i in 1:length(files_imported)) {
+assign(paste0("FMR",2006+i-1), files_imported[[i]])}
+```
+
+```{r}
+#| label: Select and rename columns for each data set for each year (state_alpha, countyname, metro, pop, fips, fmr0 to fmr4)
+
+FMR2006 <- FMR2006 |>
+  select(state_alpha, countyname, metro, pop2000, fips, fmr0,fmr1,fmr2,fmr3,fmr4)
+
+FMR2007 <- FMR2007 |>
+  select(state_alpha, countyname, metro,pop2000, fips, fmr0,fmr1,fmr2,fmr3,fmr4)
+
+ FMR2008 <- FMR2008 |>
+  select(state_alpha, countyname, metro,pop2000, fips, fmr0,fmr1,fmr2,fmr3,fmr4)
+ 
+ FMR2009 <- FMR2009 |>
+  select(state_alpha, countyname, metro,pop2000, FIPS, fmr0,fmr1,fmr2,fmr3,fmr4) |>
+   rename(fips = FIPS)
+ 
+ FMR2010 <- FMR2010 |>
+  select(state_alpha, countyname, metro,pop2000, FIPS, fmr0,fmr1,fmr2,fmr3,fmr4) |>
+   rename(fips = FIPS)
+ 
+ FMR2011 <- FMR2011 |>
+  select(state_alpha, countyname, metro,pop2000, FIPS, fmr0,fmr1,fmr2,fmr3,fmr4) |>
+   rename(fips = FIPS)
+ 
+ FMR2012 <- FMR2012 |>
+  select(state_alpha, countyname, metro,pop2000, FIPS, fmr0,fmr1,fmr2,fmr3,fmr4) |>
+   rename(fips = FIPS)
+ 
+  FMR2013 <- FMR2013 |>
+  select(state_alpha, countyname, metro,pop2010, fips2010, fmr0,fmr1,fmr2,fmr3,fmr4) |>
+   rename(fips = fips2010)
+ 
+ FMR2014 <- FMR2014 |>
+  select(state_alpha, countyname, metro,pop2010, fips2010, fmr0,fmr1,fmr2,fmr3,fmr4) |>
+   rename(fips = fips2010)
+ 
+  FMR2015 <- FMR2015 |>
+  select(state_alpha, countyname, metro,pop2010, fips2010, fmr0,fmr1,fmr2,fmr3,fmr4) |>
+   rename(fips = fips2010)
+ 
+ FMR2016 <- FMR2016 |>
+  select(state_alpha, countyname, metro,pop2010, fips2010, fmr0,fmr1,fmr2,fmr3,fmr4) |>
+   rename(fips = fips2010)
+ 
+  FMR2017 <- FMR2017 |>
+  select(state_alpha, countyname, metro,pop2010, fips2010, fmr0,fmr1,fmr2,fmr3,fmr4) |>
+   rename(fips = fips2010)
+ 
+ FMR2018 <- FMR2018 |>
+  select(state_alpha, countyname, metro,pop2010, fips2010, fmr_0,fmr_1,fmr_2,fmr_3,fmr_4) |>
+   rename(fips = fips2010, fmr0 = fmr_0, fmr1 = fmr_1, fmr2 = fmr_2, fmr3 = fmr_3, fmr4 = fmr_4)
+ 
+  FMR2019 <- FMR2019 |>
+  select(state_alpha, countyname, metro,pop2010, fips2010, fmr_0,fmr_1,fmr_2,fmr_3,fmr_4) |>
+   rename(fips = fips2010, fmr0 = fmr_0, fmr1 = fmr_1, fmr2 = fmr_2, fmr3 = fmr_3, fmr4 = fmr_4)
+ 
+  FMR2020 <- FMR2020 |>
+  select(state_alpha, countyname, metro,pop2017, fips2010, fmr_0,fmr_1,fmr_2,fmr_3,fmr_4) |>
+   rename(fips = fips2010, fmr0 = fmr_0, fmr1 = fmr_1, fmr2 = fmr_2, fmr3 = fmr_3, fmr4 = fmr_4)
+    
+  FMR2021 <- FMR2021 |>
+  select(state_alpha, countyname, metro,pop2017, fips2010, fmr_0,fmr_1,fmr_2,fmr_3,fmr_4) |>
+   rename(fips = fips2010, fmr0 = fmr_0, fmr1 = fmr_1, fmr2 = fmr_2, fmr3 = fmr_3, fmr4 = fmr_4)
+  
+  FMR2022 <- FMR2022 |>
+  select(state_alpha, countyname, metro,pop2017, fips2010, fmr_0,fmr_1,fmr_2,fmr_3,fmr_4) |>
+   rename(fips = fips2010, fmr0 = fmr_0, fmr1 = fmr_1, fmr2 = fmr_2, fmr3 = fmr_3, fmr4 = fmr_4)
+  
+  FMR2023 <- FMR2023 |>
+  select(state_alpha, countyname, metro,pop2020, fips, fmr_0,fmr_1,fmr_2,fmr_3,fmr_4) |>
+   rename( fmr0 = fmr_0, fmr1 = fmr_1, fmr2 = fmr_2, fmr3 = fmr_3, fmr4 = fmr_4)
+```
+
+```{r}
+
+```
+
+# Clean and Tidy Data
 
 ```{r}
 #| label: 
