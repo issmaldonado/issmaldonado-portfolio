@@ -37,81 +37,143 @@ assign(paste0("FMR",2006+i-1), files_imported[[i]])}
 #| label: Select and rename columns for each data set for each year (state_alpha, countyname, metro, pop, fips, fmr0 to fmr4)
 
 FMR2006 <- FMR2006 |>
-  select(state_alpha, countyname, metro, pop2000, fips, fmr0,fmr1,fmr2,fmr3,fmr4)
+  select(state_alpha, countyname, metro, fips, fmr0,fmr1,fmr2,fmr3,fmr4)|>
+    mutate(Year = 2006,
+           metro = ifelse(metro == 1, "metro", "not metro"))
 
 FMR2007 <- FMR2007 |>
-  select(state_alpha, countyname, metro,pop2000, fips, fmr0,fmr1,fmr2,fmr3,fmr4)
+  select(state_alpha, countyname, metro, fips, fmr0,fmr1,fmr2,fmr3,fmr4)|>
+    mutate(Year = 2007,
+           metro = ifelse(metro == 1, "metro", "not metro"))
 
  FMR2008 <- FMR2008 |>
-  select(state_alpha, countyname, metro,pop2000, fips, fmr0,fmr1,fmr2,fmr3,fmr4)
+  select(state_alpha, countyname, metro, fips, fmr0,fmr1,fmr2,fmr3,fmr4)|>
+    mutate(Year = 2008,
+           metro = ifelse(metro == 1, "metro", "not metro"))
  
  FMR2009 <- FMR2009 |>
-  select(state_alpha, countyname, metro,pop2000, FIPS, fmr0,fmr1,fmr2,fmr3,fmr4) |>
-   rename(fips = FIPS)
+  select(state_alpha, countyname, metro, FIPS, fmr0,fmr1,fmr2,fmr3,fmr4) |>
+   rename(fips = FIPS)|>
+    mutate(Year = 2009,
+           metro = ifelse(metro == 1, "metro", "not metro"))
  
  FMR2010 <- FMR2010 |>
-  select(state_alpha, countyname, metro,pop2000, FIPS, fmr0,fmr1,fmr2,fmr3,fmr4) |>
-   rename(fips = FIPS)
+  select(state_alpha, countyname, metro, FIPS, fmr0,fmr1,fmr2,fmr3,fmr4) |>
+   rename(fips = FIPS)|>
+    mutate(Year = 2010,
+           metro = ifelse(metro == 1, "metro", "not metro"))
  
  FMR2011 <- FMR2011 |>
-  select(state_alpha, countyname, metro,pop2000, FIPS, fmr0,fmr1,fmr2,fmr3,fmr4) |>
-   rename(fips = FIPS)
+  select(state_alpha, countyname, metro, FIPS, fmr0,fmr1,fmr2,fmr3,fmr4) |>
+   rename(fips = FIPS)|>
+    mutate(Year = 2011,
+           metro = ifelse(metro == 1, "metro", "not metro"))
  
  FMR2012 <- FMR2012 |>
-  select(state_alpha, countyname, metro,pop2000, FIPS, fmr0,fmr1,fmr2,fmr3,fmr4) |>
-   rename(fips = FIPS)
+  select(state_alpha, countyname, metro, FIPS, fmr0,fmr1,fmr2,fmr3,fmr4) |>
+   rename(fips = FIPS)|>
+    mutate(Year = 2012,
+           metro = ifelse(metro == 1, "metro", "not metro"))
  
   FMR2013 <- FMR2013 |>
-  select(state_alpha, countyname, metro,pop2010, fips2010, fmr0,fmr1,fmr2,fmr3,fmr4) |>
-   rename(fips = fips2010)
+  select(state_alpha, countyname, metro, fips2010, fmr0,fmr1,fmr2,fmr3,fmr4) |>
+   rename(fips = fips2010)|>
+    mutate(Year = 2013,
+           metro = ifelse(metro == 1, "metro", "not metro"))
  
  FMR2014 <- FMR2014 |>
-  select(state_alpha, countyname, metro,pop2010, fips2010, fmr0,fmr1,fmr2,fmr3,fmr4) |>
-   rename(fips = fips2010)
+  select(state_alpha, countyname, metro, fips2010, fmr0,fmr1,fmr2,fmr3,fmr4) |>
+   rename(fips = fips2010)|>
+    mutate(Year = 2014,
+           metro = ifelse(metro == 1, "metro", "not metro"))
  
   FMR2015 <- FMR2015 |>
-  select(state_alpha, countyname, metro,pop2010, fips2010, fmr0,fmr1,fmr2,fmr3,fmr4) |>
-   rename(fips = fips2010)
+  select(state_alpha, countyname, metro, fips2010, fmr0,fmr1,fmr2,fmr3,fmr4) |>
+   rename(fips = fips2010)|>
+    mutate(Year = 2015,
+           metro = ifelse(metro == 1, "metro", "not metro"))
  
  FMR2016 <- FMR2016 |>
-  select(state_alpha, countyname, metro,pop2010, fips2010, fmr0,fmr1,fmr2,fmr3,fmr4) |>
-   rename(fips = fips2010)
+  select(state_alpha, countyname, metro, fips2010, fmr0,fmr1,fmr2,fmr3,fmr4) |>
+   rename(fips = fips2010)|>
+    mutate(Year = 2016,
+           metro = ifelse(metro == 1, "metro", "not metro"))
  
   FMR2017 <- FMR2017 |>
-  select(state_alpha, countyname, metro,pop2010, fips2010, fmr0,fmr1,fmr2,fmr3,fmr4) |>
-   rename(fips = fips2010)
+  select(state_alpha, countyname, metro, fips2010, fmr0,fmr1,fmr2,fmr3,fmr4) |>
+   rename(fips = fips2010)|>
+    mutate(Year = 2017,
+           metro = ifelse(metro == 1, "metro", "not metro"))
  
  FMR2018 <- FMR2018 |>
-  select(state_alpha, countyname, metro,pop2010, fips2010, fmr_0,fmr_1,fmr_2,fmr_3,fmr_4) |>
-   rename(fips = fips2010, fmr0 = fmr_0, fmr1 = fmr_1, fmr2 = fmr_2, fmr3 = fmr_3, fmr4 = fmr_4)
+  select(state_alpha, countyname, metro, fips2010, fmr_0,fmr_1,fmr_2,fmr_3,fmr_4) |>
+   rename(fips = fips2010, fmr0 = fmr_0, fmr1 = fmr_1, fmr2 = fmr_2, fmr3 = fmr_3, fmr4 = fmr_4)|>
+    mutate(Year = 2018,
+           metro = ifelse(metro == 1, "metro", "not metro"))
  
   FMR2019 <- FMR2019 |>
-  select(state_alpha, countyname, metro,pop2010, fips2010, fmr_0,fmr_1,fmr_2,fmr_3,fmr_4) |>
-   rename(fips = fips2010, fmr0 = fmr_0, fmr1 = fmr_1, fmr2 = fmr_2, fmr3 = fmr_3, fmr4 = fmr_4)
+  select(state_alpha, countyname, metro, fips2010, fmr_0,fmr_1,fmr_2,fmr_3,fmr_4) |>
+   rename(fips = fips2010, fmr0 = fmr_0, fmr1 = fmr_1, fmr2 = fmr_2, fmr3 = fmr_3, fmr4 = fmr_4)|>
+    mutate(Year = 2019,
+           metro = ifelse(metro == 1, "metro", "not metro"))
  
   FMR2020 <- FMR2020 |>
-  select(state_alpha, countyname, metro,pop2017, fips2010, fmr_0,fmr_1,fmr_2,fmr_3,fmr_4) |>
-   rename(fips = fips2010, fmr0 = fmr_0, fmr1 = fmr_1, fmr2 = fmr_2, fmr3 = fmr_3, fmr4 = fmr_4)
+  select(state_alpha, countyname, metro, fips2010, fmr_0,fmr_1,fmr_2,fmr_3,fmr_4) |>
+   rename(fips = fips2010, fmr0 = fmr_0, fmr1 = fmr_1, fmr2 = fmr_2, fmr3 = fmr_3, fmr4 = fmr_4)|>
+    mutate(Year = 2020,
+           metro = ifelse(metro == 1, "metro", "not metro"))
     
   FMR2021 <- FMR2021 |>
-  select(state_alpha, countyname, metro,pop2017, fips2010, fmr_0,fmr_1,fmr_2,fmr_3,fmr_4) |>
-   rename(fips = fips2010, fmr0 = fmr_0, fmr1 = fmr_1, fmr2 = fmr_2, fmr3 = fmr_3, fmr4 = fmr_4)
+  select(state_alpha, countyname, metro, fips2010, fmr_0,fmr_1,fmr_2,fmr_3,fmr_4) |>
+   rename(fips = fips2010, fmr0 = fmr_0, fmr1 = fmr_1, fmr2 = fmr_2, fmr3 = fmr_3, fmr4 = fmr_4)|>
+    mutate(Year = 2021,
+           metro = ifelse(metro == 1, "metro", "not metro"))
   
   FMR2022 <- FMR2022 |>
-  select(state_alpha, countyname, metro,pop2017, fips2010, fmr_0,fmr_1,fmr_2,fmr_3,fmr_4) |>
-   rename(fips = fips2010, fmr0 = fmr_0, fmr1 = fmr_1, fmr2 = fmr_2, fmr3 = fmr_3, fmr4 = fmr_4)
+  select(state_alpha, countyname, metro, fips2010, fmr_0,fmr_1,fmr_2,fmr_3,fmr_4) |>
+   rename(fips = fips2010, fmr0 = fmr_0, fmr1 = fmr_1, fmr2 = fmr_2, fmr3 = fmr_3, fmr4 = fmr_4)|>
+    mutate(Year = 2022,
+           metro = ifelse(metro == 1, "metro", "not metro"))
   
   FMR2023 <- FMR2023 |>
-  select(state_alpha, countyname, metro,pop2020, fips, fmr_0,fmr_1,fmr_2,fmr_3,fmr_4) |>
-   rename( fmr0 = fmr_0, fmr1 = fmr_1, fmr2 = fmr_2, fmr3 = fmr_3, fmr4 = fmr_4)
+  select(state_alpha, countyname, metro, fips, fmr_0,fmr_1,fmr_2,fmr_3,fmr_4) |>
+   rename( fmr0 = fmr_0, fmr1 = fmr_1, fmr2 = fmr_2, fmr3 = fmr_3, fmr4 = fmr_4)|>
+    mutate(Year = 2023,
+           metro = ifelse(metro == 1, "metro", "not metro"))
 ```
 
 ```{r}
+#| Create a data set where all the data sets created are combined
+dataset_names <- 
+  sapply(1:18,
+         function(i) paste0("FMR", 2006 +i -1))
 
+combined_FMR <- 
+  bind_rows(lapply(dataset_names,get))
+
+```
+
+```{r}
+#| label: with the combined data set, only keep the fips that would be present in all 18 data sets. Removing those that are not present in all data sets. 
+combined_FMR <- combined_FMR |>
+  arrange(fips)|>
+  group_by(fips)|>
+  filter(n() >= 18)|>
+  ungroup()
 ```
 
 # Clean and Tidy Data
 
 ```{r}
 #| label: 
+combinded_FMR |>
+  group_by(fips)|>
+  summarise(
+    avg_FMR0 = mean(fmr0),
+    avg_FMR1 = mean(fmr1),
+    avg_FMR2 = mean(fmr2),
+    avg_FMR3 = mean(fmr3),
+    avg_FMR4 = mean(fmr4)
+  ) |>
+  ungroup()
 ```
