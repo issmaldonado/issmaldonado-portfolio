@@ -1,0 +1,79 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Assessing Fair Market Rent Prizes in the United States",
+    "section": "",
+    "text": "Welcome to our website, where we use fair market rent prices from the Office of Policy Development and Research (PD&R) tocharacterize the current state and visualize trends of rent prices across the United States. Fair Market Rent (FMR) is classified as the gross rent of a unit, including overall cost plus utilities. The average FMR is calculated for units with different numbers of bedrooms (zero to four) within every county in the United States. Additionally, the classification of each county as either residing in a metropolitan area or not is recorded.\nUsing the trends of FMR over the years and the metropolitan status of each county, we observe the overall status of rent prices across the US. We use data obtained between 2006 and 2023 to compare the cost of rent between states, regions, and metropolitan counties.\nTo access data sets visit the Office of Policy Development and Research or click here for a direct link to data sets."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Trends and Current State",
+    "section": "",
+    "text": "In this section we will be looking at the overall trends from 2006 to 2023. We will be calculating the average FMR prices for the whole US and see if the trends are consistent with those of the different regions in the US and non/metropolitan areas.\n\n\n\n\n\n\n\nBased on the overall of all unit types, we can see there is a consistent rate of increase of FMR rates year after year. The only exception would be 2012, were we had a decrease of rent prices. However overall, the trend has been consistent over the years. Now we will transition to see if this trend is consistent for the different unit types.\n\n\n\n\n\nBased on the graph, we can see that relative to each other, each unit type has been increasing over the years. We can see that there is a more steady rate of increase for zero and one unit apartments, especially for 2012, where as for the higher rooms the change was significantly more apparent. All in all, every room at least shows growth similar to the overall country average.\n\n\n\n\n\n\n\n\nWhat instantly stands out is that there is a competitive or relative fluctuation of FMR prices with the Southeast and West coast of the United States. We see that for majority of the years the Northeast region of the United States has higher average FMR prices, where for 2012, 2016, and 2020, the West coast had higher prices. Again these regions would be the ones with higher population densities compared to the other regions.\nIn addition, there seems to be more overall fluctuation of FMR prices in the West and Northeast coast in the United States. However for the other three region, there seems to be a more steady and consistent increase of overall FMR prices. Lastly, we should now try to see what are the FMR trends for counties that are classified as metropolitan and non-metropolitan.\n\n\n\n\n\n\n\n\nWe see that the metropolitan average FMR prices are significantly larger than to units not located in metropolitan areas. This is to be expected due to the high levels of"
+  },
+  {
+    "objectID": "about.html#overall-us-fmr-trend-from-2006-to-2023",
+    "href": "about.html#overall-us-fmr-trend-from-2006-to-2023",
+    "title": "Trends and Current State",
+    "section": "",
+    "text": "Based on the overall of all unit types, we can see there is a consistent rate of increase of FMR rates year after year. The only exception would be 2012, were we had a decrease of rent prices. However overall, the trend has been consistent over the years. Now we will transition to see if this trend is consistent for the different unit types.\n\n\n\n\n\nBased on the graph, we can see that relative to each other, each unit type has been increasing over the years. We can see that there is a more steady rate of increase for zero and one unit apartments, especially for 2012, where as for the higher rooms the change was significantly more apparent. All in all, every room at least shows growth similar to the overall country average."
+  },
+  {
+    "objectID": "about.html#fmr-trends-for-different-us-regions-from-2006-to-2023",
+    "href": "about.html#fmr-trends-for-different-us-regions-from-2006-to-2023",
+    "title": "Trends and Current State",
+    "section": "",
+    "text": "What instantly stands out is that there is a competitive or relative fluctuation of FMR prices with the Southeast and West coast of the United States. We see that for majority of the years the Northeast region of the United States has higher average FMR prices, where for 2012, 2016, and 2020, the West coast had higher prices. Again these regions would be the ones with higher population densities compared to the other regions.\nIn addition, there seems to be more overall fluctuation of FMR prices in the West and Northeast coast in the United States. However for the other three region, there seems to be a more steady and consistent increase of overall FMR prices. Lastly, we should now try to see what are the FMR trends for counties that are classified as metropolitan and non-metropolitan."
+  },
+  {
+    "objectID": "about.html#fmr-trends-for-metropolitan-counties-from-2006-to-2023",
+    "href": "about.html#fmr-trends-for-metropolitan-counties-from-2006-to-2023",
+    "title": "Trends and Current State",
+    "section": "",
+    "text": "We see that the metropolitan average FMR prices are significantly larger than to units not located in metropolitan areas. This is to be expected due to the high levels of"
+  },
+  {
+    "objectID": "about.html#state",
+    "href": "about.html#state",
+    "title": "Trends and Current State",
+    "section": "State",
+    "text": "State"
+  },
+  {
+    "objectID": "about.html#region",
+    "href": "about.html#region",
+    "title": "Trends and Current State",
+    "section": "Region",
+    "text": "Region\n\n\n\n\n\nWe can see that there is significantly higher FMR prices in the West and Northeast region compared to the other regions. This can be attributed to the high level of industrialization and county density. based on the data, there was a higher proportion of counties classified in the West and Northeast regions."
+  },
+  {
+    "objectID": "about.html#metro-status",
+    "href": "about.html#metro-status",
+    "title": "Trends and Current State",
+    "section": "Metro Status",
+    "text": "Metro Status\n\n\n\n\n\nBased on the data, there is a substantial difference in prices between units located in metropolitan counties and those in non-metropolitan counties. The average rent prices for metropolitan counties are higher than those for non-metropolitan counties. Specifically, the FMR for metropolitan units is about 22-25% more expensive than the same unit types in non-metropolitan counties."
+  },
+  {
+    "objectID": "Data_Wrangle.html",
+    "href": "Data_Wrangle.html",
+    "title": "Utilized Code",
+    "section": "",
+    "text": "library(stringr)\nlibrary(purrr)\nlibrary(readxl)\n\nWarning: package 'readxl' was built under R version 4.4.3\n\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\nlibrary(stringr)\nlibrary(tidyverse)\n\nWarning: package 'tidyverse' was built under R version 4.4.3\n\n\nWarning: package 'lubridate' was built under R version 4.4.3\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ forcats   1.0.0     ✔ readr     2.1.5\n✔ ggplot2   3.5.1     ✔ tibble    3.2.1\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n\n\n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\nlibrary(janitor)\n\n\nAttaching package: 'janitor'\n\nThe following objects are masked from 'package:stats':\n\n    chisq.test, fisher.test\n\nlibrary(broom)\n\nWarning: package 'broom' was built under R version 4.4.3\n\nlibrary(rsample)\n\nWarning: package 'rsample' was built under R version 4.4.3\n\nlibrary(yardstick)\n\nWarning: package 'yardstick' was built under R version 4.4.3\n\n\n\nAttaching package: 'yardstick'\n\nThe following object is masked from 'package:readr':\n\n    spec"
+  },
+  {
+    "objectID": "Data_Wrangle.html#overall-trends-over-different-us-regions",
+    "href": "Data_Wrangle.html#overall-trends-over-different-us-regions",
+    "title": "Utilized Code",
+    "section": "Overall Trends Over Different US Regions",
+    "text": "Overall Trends Over Different US Regions\n\nOverall_west_trend &lt;-FMR_all|&gt;\n  filter(state_alpha == c(\"WA\", \"OR\", \"CA\", \"NV\", \"UT\", \"CO\", \"WY\", \"MT\", \"ID\", \"AK\", \"HI\"))|&gt;\n  group_by(Year)|&gt;\n  summarise(avg_fmr = mean(c(fmr0,fmr1,fmr2,fmr3,fmr4)))|&gt;\n  mutate(region = \"West\")\n\nWarning: There was 1 warning in `filter()`.\nℹ In argument: `==...`.\nCaused by warning in `state_alpha == c(\"WA\", \"OR\", \"CA\", \"NV\", \"UT\", \"CO\", \"WY\", \"MT\", \"ID\", \"AK\",\n    \"HI\")`:\n! longer object length is not a multiple of shorter object length\n\nOverall_midwest_trend &lt;-FMR_all|&gt;\n  filter(state_alpha == c(\"ND\", \"MN\", \"WI\", \"MI\", \"OH\", \"IN\", \"IL\", \"MO\", \"IA\", \"SD\", \"NE\", \"KS\"))|&gt;\n  group_by(Year)|&gt;\n  summarise(avg_fmr = mean(c(fmr0,fmr1,fmr2,fmr3,fmr4)))|&gt;\n  mutate(region = \"Midwest\")\n\nOverall_northeast_trend &lt;-FMR_all|&gt;\n  filter(state_alpha == c(\"ME\",\"NH\",\"MA\",\"NY\",\"VT\",\"RI\",\"CT\",\"PA\",\"NJ\"))|&gt;\n  group_by(Year)|&gt;\n  summarise(avg_fmr = mean(c(fmr0,fmr1,fmr2,fmr3,fmr4)))|&gt;\n  mutate(region = \"Northeast\")\n\nOverall_southwest_trend &lt;-FMR_all|&gt;\n  filter(state_alpha == c(\"AZ\",\"NM\",\"TX\",\"OK\"))|&gt;\n  group_by(Year)|&gt;\n  summarise(avg_fmr = mean(c(fmr0,fmr1,fmr2,fmr3,fmr4)))|&gt;\n  mutate(region = \"Southwest\")\n\nOverall_southeast_trend &lt;-FMR_all|&gt;\n  filter(state_alpha == c(\"WV\",\"DC\",\"DE\",\"VA\",\"KY\",\"TN\",\"NC\",\"SC\",\"GA\",\"FL\",\"AL\",\"MS\",\"AR\",\"LA\", \"MD\"))|&gt;\n  group_by(Year)|&gt;\n  summarise(avg_fmr = mean(c(fmr0,fmr1,fmr2,fmr3,fmr4)))|&gt;\n  mutate(region = \"Southeast\")\n\nWarning: There was 1 warning in `filter()`.\nℹ In argument: `==...`.\nCaused by warning in `state_alpha == c(\"WV\", \"DC\", \"DE\", \"VA\", \"KY\", \"TN\", \"NC\", \"SC\", \"GA\", \"FL\",\n    \"AL\", \"MS\", \"AR\", \"LA\", \"MD\")`:\n! longer object length is not a multiple of shorter object length\n\nTotal_region_trends &lt;- bind_rows(Overall_southeast_trend,Overall_southwest_trend, Overall_northeast_trend, Overall_midwest_trend, Overall_west_trend)\n\ntotal_region_trend &lt;- ggplot(Total_region_trends, aes(x= Year, y = avg_fmr, color = region)) +\n  geom_line()+\n  geom_point()+\n  labs(title = \"Standard Trend for Overall FMR Price for Different Regions (2006-2023)\",\n       x = \"Year\",\n       y = \"Average Rent Price\") +\n  theme_classic()\n  \nprint(total_region_trend)\n\n\n\n\n\n\n\nggsave(filename = \"images/total_region_trend.png\", plot = total_region_trend)\n\nSaving 7 x 5 in image"
+  },
+  {
+    "objectID": "Data_Wrangle.html#overall-trends-over-different-metropolitan-counties",
+    "href": "Data_Wrangle.html#overall-trends-over-different-metropolitan-counties",
+    "title": "Utilized Code",
+    "section": "Overall Trends Over Different Metropolitan Counties",
+    "text": "Overall Trends Over Different Metropolitan Counties\n\nFMR_metro_trend &lt;- FMR_all |&gt;\n  filter(metro == \"metro\")|&gt;\n  group_by(Year)|&gt;\n  summarize(avg_fmr = mean(c(fmr0, fmr1, fmr2,fmr3, fmr4)))|&gt;\n  mutate(metro = \"metro\")\n  \n\nFMR_nonmetro_trend &lt;- FMR_all |&gt;\n  filter(!metro == \"metro\") |&gt;\n  group_by(Year) |&gt;\n  summarize(avg_fmr = mean(c(fmr0, fmr1, fmr2,fmr3, fmr4)))|&gt;\n  mutate(metro = \"not metro\")\n\nOverall_metro_trends &lt;- bind_rows(FMR_metro_trend, FMR_nonmetro_trend)\n\ntotal_metro_trend &lt;- ggplot(Overall_metro_trends, aes(x=Year, y = avg_fmr, color = metro))+\n  geom_line()+\n  geom_point()+\n  labs(title = \"Standard Trend for Overall FMR for Metropolitan Status (2006-2023)\",\n       x = \"Year\",\n       y = \"Average Rent Prices\")+\n  theme_classic()\n\nprint(total_metro_trend)\n\n\n\n\n\n\n\nggsave(filename = \"images/total_metro_trend.png\", plot = total_metro_trend)\n\nSaving 7 x 5 in image"
+  }
+]
