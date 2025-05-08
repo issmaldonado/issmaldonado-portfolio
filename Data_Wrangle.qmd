@@ -39,7 +39,7 @@ assign(paste0("FMR",2006+i-1), files_imported[[i]])}
 # Clean and Tidy Data Sets
 
 ```{r}
-#| label: Clean up data to bind data sets to one data set
+#| label: Clean up data to bind data sets to form a dataset that encap
 # Since every year the data was formated differently data had to be manually cleaned
 
 FMR2006 <- FMR2006 |>
