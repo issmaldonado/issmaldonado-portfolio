@@ -647,4 +647,188 @@ print(metro_average_plot)
 ggsave(filename = "images/metro_average_plot.png", plot = metro_average_plot)
 ```
 
-# 
+# Creating Linear Regression Model to Analyze Prices
+
+```{r}
+ set.seed(1) 
+ data_split <- initial_split(
+   data = FMR_all, 
+   strata = state_alpha, 
+   prop = .80 )
+
+data_train <- training(data_split) 
+data_test <- testing(data_split)
+```
+
+```{r}
+model_train <- data_train |> 
+  select(
+    state_alpha, 
+    countyname, 
+    metro, 
+    fmr0, 
+    fmr1, 
+    fmr2, 
+    fmr3, 
+    fmr4, 
+    Year)
+```
+
+```{r}
+fmr_lm0 <- lm( 
+  fmr0 ~ Year + metro + state_alpha + fmr1, 
+  data = model_train )
+fmr_lm1 <- lm( 
+  fmr1 ~ Year + metro + state_alpha + fmr0+ fmr2, 
+  data = model_train )
+fmr_lm2 <- lm( 
+  fmr2 ~ Year + metro + state_alpha + fmr1+fmr3, 
+  data = model_train )
+fmr_lm3 <- lm( 
+  fmr3 ~ Year + metro + state_alpha + fmr2+fmr4, 
+  data = model_train )
+fmr_lm4 <- lm( 
+  fmr4 ~ Year + metro + state_alpha + fmr3, 
+  data = model_train )
+```
+
+```{r}
+model_test <- data_test |> 
+  select( state_alpha, 
+          metro, 
+          countyname, 
+          fmr0, 
+          fmr1, 
+          fmr2, 
+          fmr3, 
+          fmr4, 
+          Year )
+```
+
+```{r}
+model_pred0 <- fmr_lm0 |> 
+  augment(newdata = model_test)
+model_pred1 <- fmr_lm1 |>
+  augment(newdata = model_test)
+model_pred2 <- fmr_lm2 |> 
+  augment(newdata = model_test)
+model_pred3 <- fmr_lm3 |> 
+  augment(newdata = model_test)
+model_pred4 <- fmr_lm4 |>
+  augment(newdata = model_test)
+
+```
+
+```{r}
+mae0 <- model_pred0 |> mae( 
+  truth = fmr0, 
+  estimate = .fitted )
+rmse0 <- model_pred0 |>
+  rmse(
+    truth = fmr0,
+    estimate = .fitted
+  )
+
+mae1 <- model_pred1 |> mae( 
+  truth = fmr1, 
+  estimate = .fitted )
+rmse1 <-model_pred1 |>
+  rmse(
+    truth = fmr1,
+    estimate = .fitted
+  )
+
+mae2 <- model_pred2 |> mae( 
+  truth = fmr2, 
+  estimate = .fitted )
+rmse2 <-model_pred2 |>
+  rmse(
+    truth = fmr2,
+    estimate = .fitted
+  )
+
+mae3 <- model_pred3 |> mae( 
+  truth = fmr3, 
+  estimate = .fitted )
+rmse3 <-model_pred3 |>
+  rmse(
+    truth = fmr3,
+    estimate = .fitted
+  )
+
+mae4 <- model_pred4 |> mae( 
+  truth = fmr4, 
+  estimate = .fitted )
+rmse4 <-model_pred4 |>
+  rmse(
+    truth = fmr4,
+    estimate = .fitted
+  )
+
+
+```
+
+```{r}
+
+lm0_plot <- ggplot(data = model_pred0, mapping = aes(y = .fitted, x = fmr0)) + 
+  geom_point(alpha = 0.25) + 
+  geom_smooth(method = "loess", se = FALSE, linewidth = 1.5)+
+  labs(
+    title = "Linear Regression Model for Zero Room Unit",
+    x = "Actual FMR Value for Zero Room Unit",
+    y = "Predicted FMR Value for Zero Room Unit"
+  )+
+  theme_classic()
+
+lm1_plot <- ggplot(data = model_pred1, mapping = aes(y = .fitted, x = fmr1)) + 
+  geom_point(alpha = 0.25) + 
+  geom_smooth(method = "loess", se = FALSE, linewidth = 1.5)+
+  labs(
+    title = "Linear Regression Model for One Room Unit",
+    x = "Actual FMR Value for One Room Unit",
+    y = "Predicted FMR Value for One Room Unit"
+  )+
+  theme_classic()
+
+lm2_plot <- ggplot(data = model_pred2, mapping = aes(y = .fitted, x = fmr2)) + 
+  geom_point(alpha = 0.25) + 
+  geom_smooth(method = "loess", se = FALSE, linewidth = 1.5)+
+  labs(
+    title = "Linear Regression Model for Two Room Unit",
+    x = "Actual FMR Value for Two Room Unit",
+    y = "Predicted FMR Value for Two Room Unit"
+  )+
+  theme_classic()
+
+lm3_plot <- ggplot(data = model_pred3, mapping = aes(y = .fitted, x = fmr3)) + 
+  geom_point(alpha = 0.25) + 
+  geom_smooth(method = "loess", se = FALSE, linewidth = 1.5)+
+  labs(
+    title = "Linear Regression Model for Three Room Unit",
+    x = "Actual FMR Value for Three Room Unit",
+    y = "Predicted FMR Value for Three Room Unit"
+  )+
+  theme_classic()
+
+lm4_plot <- ggplot(data = model_pred4, mapping = aes(y = .fitted, x = fmr4)) + 
+  geom_point(alpha = 0.25) + 
+  geom_smooth(method = "loess", se = FALSE, linewidth = 1.5)+
+  labs(
+    title = "Linear Regression Model for Four Room Unit",
+    x = "Actual FMR Value for Four Room Unit",
+    y = "Predicted FMR Value for Four Room Unit"
+  )+
+  theme_classic()
+
+print(lm0_plot)
+print(lm1_plot)
+print(lm2_plot)
+print(lm3_plot)
+print(lm4_plot)
+
+ggsave(filename = "images/lm0_plot.png", plot = lm0_plot)
+ggsave(filename = "images/lm1_plot.png", plot = lm1_plot)
+ggsave(filename = "images/lm2_plot.png", plot = lm2_plot)
+ggsave(filename = "images/lm3_plot.png", plot = lm3_plot)
+ggsave(filename = "images/lm4_plot.png", plot = lm4_plot)
+```
