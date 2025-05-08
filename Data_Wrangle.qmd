@@ -1,5 +1,5 @@
 ---
-title: "Data_Wrangling"
+title: "Utilized Code"
 editor: visual
 ---
 
@@ -14,6 +14,9 @@ library(dplyr)
 library(stringr)
 library(tidyverse)
 library(janitor)
+library(broom)
+library(rsample)
+library(yardstick)
 ```
 
 # Import Data Sets
@@ -33,147 +36,615 @@ for(i in 1:length(files_imported)) {
 assign(paste0("FMR",2006+i-1), files_imported[[i]])}
 ```
 
+# Clean and Tidy Data Sets
+
 ```{r}
-#| label: Select and rename columns for each data set for each year (state_alpha, countyname, metro, pop, fips, fmr0 to fmr4)
+#| label: Clean up data to bind data sets to one data set
+# Since every year the data was formated differently data had to be manually cleaned
 
 FMR2006 <- FMR2006 |>
-  select(state_alpha, countyname, metro, fips, fmr0,fmr1,fmr2,fmr3,fmr4)|>
+  select(state_alpha, countyname, metro, fmr0,fmr1,fmr2,fmr3,fmr4)|>
     mutate(Year = 2006,
-           metro = ifelse(metro == 1, "metro", "not metro"))
+           metro = ifelse(metro == 1, "metro", "not metro"))|>
+   group_by(countyname) |>
+  mutate(
+    fmr0 = mean(fmr0),
+    fmr1 = mean(fmr1),
+    fmr2 = mean(fmr2),
+    fmr3 = mean(fmr3),
+    fmr4 = mean(fmr4),
+  ) |>
+  ungroup()|>
+  select(state_alpha, countyname, metro, fmr0,fmr1,fmr2,fmr3,fmr4,Year)|>
+  distinct()
 
 FMR2007 <- FMR2007 |>
-  select(state_alpha, countyname, metro, fips, fmr0,fmr1,fmr2,fmr3,fmr4)|>
+  select(state_alpha, countyname, metro, fmr0,fmr1,fmr2,fmr3,fmr4)|>
     mutate(Year = 2007,
-           metro = ifelse(metro == 1, "metro", "not metro"))
+           metro = ifelse(metro == 1, "metro", "not metro"))|>
+   group_by(countyname) |>
+  mutate(
+    fmr0 = mean(fmr0),
+    fmr1 = mean(fmr1),
+    fmr2 = mean(fmr2),
+    fmr3 = mean(fmr3),
+    fmr4 = mean(fmr4),
+  ) |>
+  ungroup()|>
+ select(state_alpha, countyname, metro, fmr0,fmr1,fmr2,fmr3,fmr4,Year)|>
+  distinct()
 
  FMR2008 <- FMR2008 |>
-  select(state_alpha, countyname, metro, fips, fmr0,fmr1,fmr2,fmr3,fmr4)|>
+  select(state_alpha, countyname, metro, fmr0,fmr1,fmr2,fmr3,fmr4)|>
     mutate(Year = 2008,
-           metro = ifelse(metro == 1, "metro", "not metro"))
+           metro = ifelse(metro == 1, "metro", "not metro"))|>
+   group_by(countyname) |>
+  mutate(
+    fmr0 = mean(fmr0),
+    fmr1 = mean(fmr1),
+    fmr2 = mean(fmr2),
+    fmr3 = mean(fmr3),
+    fmr4 = mean(fmr4),
+  ) |>
+  ungroup()|>
+ select(state_alpha, countyname, metro, fmr0,fmr1,fmr2,fmr3,fmr4,Year)|>
+  distinct()
  
  FMR2009 <- FMR2009 |>
-  select(state_alpha, countyname, metro, FIPS, fmr0,fmr1,fmr2,fmr3,fmr4) |>
-   rename(fips = FIPS)|>
+  select(state_alpha, countyname, metro, fmr0,fmr1,fmr2,fmr3,fmr4) |>
     mutate(Year = 2009,
-           metro = ifelse(metro == 1, "metro", "not metro"))
+           metro = ifelse(metro == 1, "metro", "not metro"))|>
+   group_by(countyname) |>
+  mutate(
+    fmr0 = mean(fmr0),
+    fmr1 = mean(fmr1),
+    fmr2 = mean(fmr2),
+    fmr3 = mean(fmr3),
+    fmr4 = mean(fmr4),
+  ) |>
+  ungroup()|>
+  select(state_alpha, countyname, metro, fmr0,fmr1,fmr2,fmr3,fmr4,Year)|>
+  distinct()
  
  FMR2010 <- FMR2010 |>
-  select(state_alpha, countyname, metro, FIPS, fmr0,fmr1,fmr2,fmr3,fmr4) |>
-   rename(fips = FIPS)|>
+  select(state_alpha, countyname, metro, fmr0,fmr1,fmr2,fmr3,fmr4) |>
     mutate(Year = 2010,
-           metro = ifelse(metro == 1, "metro", "not metro"))
+           metro = ifelse(metro == 1, "metro", "not metro"))|>
+   group_by(countyname) |>
+  mutate(
+    fmr0 = mean(fmr0),
+    fmr1 = mean(fmr1),
+    fmr2 = mean(fmr2),
+    fmr3 = mean(fmr3),
+    fmr4 = mean(fmr4),
+  ) |>
+  ungroup()|>
+  select(state_alpha, countyname, metro, fmr0,fmr1,fmr2,fmr3,fmr4,Year)|>
+  distinct()
  
  FMR2011 <- FMR2011 |>
-  select(state_alpha, countyname, metro, FIPS, fmr0,fmr1,fmr2,fmr3,fmr4) |>
-   rename(fips = FIPS)|>
+  select(state_alpha, countyname, metro, , fmr0,fmr1,fmr2,fmr3,fmr4) |>
     mutate(Year = 2011,
-           metro = ifelse(metro == 1, "metro", "not metro"))
+           metro = ifelse(metro == 1, "metro", "not metro"))|>
+   group_by(countyname) |>
+  mutate(
+    fmr0 = mean(fmr0),
+    fmr1 = mean(fmr1),
+    fmr2 = mean(fmr2),
+    fmr3 = mean(fmr3),
+    fmr4 = mean(fmr4),
+  ) |>
+  ungroup()|>
+  select(state_alpha, countyname, metro, fmr0,fmr1,fmr2,fmr3,fmr4,Year)|>
+  distinct()
  
  FMR2012 <- FMR2012 |>
-  select(state_alpha, countyname, metro, FIPS, fmr0,fmr1,fmr2,fmr3,fmr4) |>
-   rename(fips = FIPS)|>
+  select(state_alpha, countyname, metro, fmr0,fmr1,fmr2,fmr3,fmr4) |>
     mutate(Year = 2012,
-           metro = ifelse(metro == 1, "metro", "not metro"))
+           metro = ifelse(metro == 1, "metro", "not metro"))|>
+   group_by(countyname) |>
+  mutate(
+    fmr0 = mean(fmr0),
+    fmr1 = mean(fmr1),
+    fmr2 = mean(fmr2),
+    fmr3 = mean(fmr3),
+    fmr4 = mean(fmr4),
+  ) |>
+  ungroup()|>
+  select(state_alpha, countyname, metro, fmr0,fmr1,fmr2,fmr3,fmr4,Year)|>
+  distinct()
  
   FMR2013 <- FMR2013 |>
-  select(state_alpha, countyname, metro, fips2010, fmr0,fmr1,fmr2,fmr3,fmr4) |>
-   rename(fips = fips2010)|>
+  select(state_alpha, countyname, metro, fmr0,fmr1,fmr2,fmr3,fmr4) |>
     mutate(Year = 2013,
-           metro = ifelse(metro == 1, "metro", "not metro"))
+           metro = ifelse(metro == 1, "metro", "not metro"))|>
+   group_by(countyname) |>
+  mutate(
+    fmr0 = mean(fmr0),
+    fmr1 = mean(fmr1),
+    fmr2 = mean(fmr2),
+    fmr3 = mean(fmr3),
+    fmr4 = mean(fmr4),
+  ) |>
+  ungroup()|>
+  select(state_alpha, countyname, metro, fmr0,fmr1,fmr2,fmr3,fmr4,Year)|>
+  distinct()
  
  FMR2014 <- FMR2014 |>
-  select(state_alpha, countyname, metro, fips2010, fmr0,fmr1,fmr2,fmr3,fmr4) |>
-   rename(fips = fips2010)|>
+  select(state_alpha, countyname, metro, fmr0,fmr1,fmr2,fmr3,fmr4) |>
     mutate(Year = 2014,
-           metro = ifelse(metro == 1, "metro", "not metro"))
+           metro = ifelse(metro == 1, "metro", "not metro"))|>
+   group_by(countyname) |>
+  mutate(
+    fmr0 = mean(fmr0),
+    fmr1 = mean(fmr1),
+    fmr2 = mean(fmr2),
+    fmr3 = mean(fmr3),
+    fmr4 = mean(fmr4),
+  ) |>
+  ungroup()|>
+  select(state_alpha, countyname, metro, fmr0,fmr1,fmr2,fmr3,fmr4,Year)|>
+  distinct()
  
   FMR2015 <- FMR2015 |>
-  select(state_alpha, countyname, metro, fips2010, fmr0,fmr1,fmr2,fmr3,fmr4) |>
-   rename(fips = fips2010)|>
+  select(state_alpha, countyname, metro, fmr0,fmr1,fmr2,fmr3,fmr4) |>
     mutate(Year = 2015,
-           metro = ifelse(metro == 1, "metro", "not metro"))
+           metro = ifelse(metro == 1, "metro", "not metro"))|>
+   group_by(countyname) |>
+  mutate(
+    fmr0 = mean(fmr0),
+    fmr1 = mean(fmr1),
+    fmr2 = mean(fmr2),
+    fmr3 = mean(fmr3),
+    fmr4 = mean(fmr4),
+  ) |>
+  ungroup()|>
+  select(state_alpha, countyname, metro, fmr0,fmr1,fmr2,fmr3,fmr4,Year)|>
+  distinct()
  
  FMR2016 <- FMR2016 |>
-  select(state_alpha, countyname, metro, fips2010, fmr0,fmr1,fmr2,fmr3,fmr4) |>
-   rename(fips = fips2010)|>
+  select(state_alpha, countyname, metro, fmr0,fmr1,fmr2,fmr3,fmr4) |>
     mutate(Year = 2016,
-           metro = ifelse(metro == 1, "metro", "not metro"))
+           metro = ifelse(metro == 1, "metro", "not metro"))|>
+   group_by(countyname) |>
+  mutate(
+    fmr0 = mean(fmr0),
+    fmr1 = mean(fmr1),
+    fmr2 = mean(fmr2),
+    fmr3 = mean(fmr3),
+    fmr4 = mean(fmr4),
+  ) |>
+  ungroup()|>
+  select(state_alpha, countyname, metro, fmr0,fmr1,fmr2,fmr3,fmr4,Year)|>
+  distinct()
  
   FMR2017 <- FMR2017 |>
-  select(state_alpha, countyname, metro, fips2010, fmr0,fmr1,fmr2,fmr3,fmr4) |>
-   rename(fips = fips2010)|>
+  select(state_alpha, countyname, metro, fmr0,fmr1,fmr2,fmr3,fmr4) |>
     mutate(Year = 2017,
-           metro = ifelse(metro == 1, "metro", "not metro"))
+           metro = ifelse(metro == 1, "metro", "not metro"))|>
+   group_by(countyname) |>
+  mutate(
+    fmr0 = mean(fmr0),
+    fmr1 = mean(fmr1),
+    fmr2 = mean(fmr2),
+    fmr3 = mean(fmr3),
+    fmr4 = mean(fmr4),
+  ) |>
+  ungroup()|>
+  select(state_alpha, countyname, metro, fmr0,fmr1,fmr2,fmr3,fmr4,Year)|>
+  distinct()
  
  FMR2018 <- FMR2018 |>
-  select(state_alpha, countyname, metro, fips2010, fmr_0,fmr_1,fmr_2,fmr_3,fmr_4) |>
-   rename(fips = fips2010, fmr0 = fmr_0, fmr1 = fmr_1, fmr2 = fmr_2, fmr3 = fmr_3, fmr4 = fmr_4)|>
+  select(state_alpha, countyname, metro, fmr_0,fmr_1,fmr_2,fmr_3,fmr_4) |>
+   rename(fmr0 = fmr_0, fmr1 = fmr_1, fmr2 = fmr_2, fmr3 = fmr_3, fmr4 = fmr_4)|>
     mutate(Year = 2018,
-           metro = ifelse(metro == 1, "metro", "not metro"))
+           metro = ifelse(metro == 1, "metro", "not metro"))|>
+   group_by(countyname) |>
+  mutate(
+    fmr0 = mean(fmr0),
+    fmr1 = mean(fmr1),
+    fmr2 = mean(fmr2),
+    fmr3 = mean(fmr3),
+    fmr4 = mean(fmr4),
+  ) |>
+  ungroup()|>
+  select(state_alpha, countyname, metro, fmr0,fmr1,fmr2,fmr3,fmr4,Year)|>
+  distinct()
  
   FMR2019 <- FMR2019 |>
-  select(state_alpha, countyname, metro, fips2010, fmr_0,fmr_1,fmr_2,fmr_3,fmr_4) |>
-   rename(fips = fips2010, fmr0 = fmr_0, fmr1 = fmr_1, fmr2 = fmr_2, fmr3 = fmr_3, fmr4 = fmr_4)|>
+  select(state_alpha, countyname, metro, fmr_0,fmr_1,fmr_2,fmr_3,fmr_4) |>
+   rename( fmr0 = fmr_0, fmr1 = fmr_1, fmr2 = fmr_2, fmr3 = fmr_3, fmr4 = fmr_4)|>
     mutate(Year = 2019,
-           metro = ifelse(metro == 1, "metro", "not metro"))
+           metro = ifelse(metro == 1, "metro", "not metro"))|>
+   group_by(countyname) |>
+  mutate(
+    fmr0 = mean(fmr0),
+    fmr1 = mean(fmr1),
+    fmr2 = mean(fmr2),
+    fmr3 = mean(fmr3),
+    fmr4 = mean(fmr4),
+  ) |>
+  ungroup()|>
+  select(state_alpha, countyname, metro, fmr0,fmr1,fmr2,fmr3,fmr4,Year)|>
+  distinct()
  
   FMR2020 <- FMR2020 |>
-  select(state_alpha, countyname, metro, fips2010, fmr_0,fmr_1,fmr_2,fmr_3,fmr_4) |>
-   rename(fips = fips2010, fmr0 = fmr_0, fmr1 = fmr_1, fmr2 = fmr_2, fmr3 = fmr_3, fmr4 = fmr_4)|>
+  select(state_alpha, countyname, metro, fmr_0,fmr_1,fmr_2,fmr_3,fmr_4) |>
+   rename( fmr0 = fmr_0, fmr1 = fmr_1, fmr2 = fmr_2, fmr3 = fmr_3, fmr4 = fmr_4)|>
     mutate(Year = 2020,
-           metro = ifelse(metro == 1, "metro", "not metro"))
+           metro = ifelse(metro == 1, "metro", "not metro"))|>
+   group_by(countyname) |>
+  mutate(
+    fmr0 = mean(fmr0),
+    fmr1 = mean(fmr1),
+    fmr2 = mean(fmr2),
+    fmr3 = mean(fmr3),
+    fmr4 = mean(fmr4),
+  ) |>
+  ungroup()|>
+  select(state_alpha, countyname, metro, fmr0,fmr1,fmr2,fmr3,fmr4,Year)|>
+  distinct()
     
   FMR2021 <- FMR2021 |>
-  select(state_alpha, countyname, metro, fips2010, fmr_0,fmr_1,fmr_2,fmr_3,fmr_4) |>
-   rename(fips = fips2010, fmr0 = fmr_0, fmr1 = fmr_1, fmr2 = fmr_2, fmr3 = fmr_3, fmr4 = fmr_4)|>
+  select(state_alpha, countyname, metro, fmr_0,fmr_1,fmr_2,fmr_3,fmr_4) |>
+   rename( fmr0 = fmr_0, fmr1 = fmr_1, fmr2 = fmr_2, fmr3 = fmr_3, fmr4 = fmr_4)|>
     mutate(Year = 2021,
-           metro = ifelse(metro == 1, "metro", "not metro"))
+           metro = ifelse(metro == 1, "metro", "not metro"))|>
+   group_by(countyname) |>
+  mutate(
+    fmr0 = mean(fmr0),
+    fmr1 = mean(fmr1),
+    fmr2 = mean(fmr2),
+    fmr3 = mean(fmr3),
+    fmr4 = mean(fmr4),
+  ) |>
+  ungroup()|>
+  select(state_alpha, countyname, metro, fmr0,fmr1,fmr2,fmr3,fmr4,Year)|>
+  distinct()
   
   FMR2022 <- FMR2022 |>
-  select(state_alpha, countyname, metro, fips2010, fmr_0,fmr_1,fmr_2,fmr_3,fmr_4) |>
-   rename(fips = fips2010, fmr0 = fmr_0, fmr1 = fmr_1, fmr2 = fmr_2, fmr3 = fmr_3, fmr4 = fmr_4)|>
+  select(state_alpha, countyname, metro, fmr_0,fmr_1,fmr_2,fmr_3,fmr_4) |>
+   rename( fmr0 = fmr_0, fmr1 = fmr_1, fmr2 = fmr_2, fmr3 = fmr_3, fmr4 = fmr_4)|>
     mutate(Year = 2022,
-           metro = ifelse(metro == 1, "metro", "not metro"))
+           metro = ifelse(metro == 1, "metro", "not metro"))|>
+   group_by(countyname) |>
+  mutate(
+    fmr0 = mean(fmr0),
+    fmr1 = mean(fmr1),
+    fmr2 = mean(fmr2),
+    fmr3 = mean(fmr3),
+    fmr4 = mean(fmr4),
+  ) |>
+  ungroup()|>
+  select(state_alpha, countyname, metro, fmr0,fmr1,fmr2,fmr3,fmr4,Year)|>
+  distinct()
   
   FMR2023 <- FMR2023 |>
-  select(state_alpha, countyname, metro, fips, fmr_0,fmr_1,fmr_2,fmr_3,fmr_4) |>
+  select(state_alpha, countyname, metro, fmr_0,fmr_1,fmr_2,fmr_3,fmr_4) |>
    rename( fmr0 = fmr_0, fmr1 = fmr_1, fmr2 = fmr_2, fmr3 = fmr_3, fmr4 = fmr_4)|>
     mutate(Year = 2023,
-           metro = ifelse(metro == 1, "metro", "not metro"))
-```
-
-```{r}
-#| Create a data set where all the data sets created are combined
-dataset_names <- 
-  sapply(1:18,
-         function(i) paste0("FMR", 2006 +i -1))
-
-combined_FMR <- 
-  bind_rows(lapply(dataset_names,get))
-
-```
-
-```{r}
-#| label: with the combined data set, only keep the fips that would be present in all 18 data sets. Removing those that are not present in all data sets. 
-combined_FMR <- combined_FMR |>
-  arrange(fips)|>
-  group_by(fips)|>
-  filter(n() >= 18)|>
-  ungroup()
-```
-
-# Clean and Tidy Data
-
-```{r}
-#| label: 
-combinded_FMR |>
-  group_by(fips)|>
-  summarise(
-    avg_FMR0 = mean(fmr0),
-    avg_FMR1 = mean(fmr1),
-    avg_FMR2 = mean(fmr2),
-    avg_FMR3 = mean(fmr3),
-    avg_FMR4 = mean(fmr4)
+           metro = ifelse(metro == 1, "metro", "not metro"))|>
+   group_by(countyname) |>
+  mutate(
+    fmr0 = mean(fmr0),
+    fmr1 = mean(fmr1),
+    fmr2 = mean(fmr2),
+    fmr3 = mean(fmr3),
+    fmr4 = mean(fmr4),
   ) |>
+  ungroup()|>
+  select(state_alpha, countyname, metro, fmr0,fmr1,fmr2,fmr3,fmr4,Year)|>
+  distinct()
+```
+
+```{r}
+#| label: bind rows of all data sets from 2006 to 2023 for trend and 2017 to 2023 for more current condition
+
+FMR_all <- bind_rows(FMR2006, FMR2007, FMR2008, FMR2009,FMR2010, FMR2011, FMR2012, FMR2013,FMR2014, FMR2015,FMR2016,FMR2017, FMR2018, FMR2019, FMR2020,FMR2021,FMR2022,FMR2023)
+
+
+FMR_current <- bind_rows(FMR2016, FMR2017, FMR2018, FMR2019, FMR2020,FMR2021,FMR2022,FMR2023)
+```
+
+```{r}
+#| label: remove providances and keep data of counties in every data set (year)
+# this assures that i am only using counties that were present in all data sets
+FMR_all <- FMR_all |>
+  filter(!state_alpha %in% c("GU", "PR", "VI"))|>
+  arrange(state_alpha)|>
+  group_by(state_alpha,countyname)|>
+  filter(n() == 18)|>
+  ungroup()
+
+FMR_current <- FMR_current |>
+  filter(!state_alpha %in% c("GU", "PR", "VI"))|>
+  arrange(state_alpha)|>
+  group_by(state_alpha,countyname)|>
+  filter(n() == 8)|>
   ungroup()
 ```
+
+# Visualizing Data: Trends of FMR Market 2006-2023
+
+Here we want to see the trend of FMR prices over the years. First I want to see the overall trend prices in the united state.
+
+```{r}
+FMR_US_trend <- FMR_all |>
+  group_by(Year)|>
+  summarize (avg_rent = mean(c(fmr0, fmr1, fmr2, fmr3, fmr4)))
+
+US_trend_plot <- ggplot(FMR_US_trend, aes(x=Year, y = avg_rent)) +
+  geom_line() +
+  geom_point() +
+  labs(title = "Standard Trend for FMR Price (2006-2023)",
+       x = "Year",
+       y = "Average Rent Price") +
+  theme_classic()
+ggsave(filename = "images/US_trend_plot.png", plot = US_trend_plot)
+print(US_trend_plot)
+```
+
+We can see that the average FMR for all units between 0-4 bedroom has almost doubled. Now lets see the trends for each unit type.
+
+```{r}
+FMR_US_trend_sep <- FMR_all |>
+  group_by(Year)|>
+  summarize (fmr0 = mean(fmr0),
+    fmr1 = mean(fmr1),
+    fmr2 = mean(fmr2),
+    fmr3 = mean(fmr3),
+    fmr4 = mean(fmr4))|>
+  pivot_longer(cols = starts_with("fmr"), names_to = "apartment_type", values_to = "average_fmr")
+
+all_fmr_trends <- ggplot(FMR_US_trend_sep, aes(x=Year, y =average_fmr, color = apartment_type)) +
+  geom_line() +
+  geom_point() +
+  labs(title = "Standard Trend for FMR Price for Different Units (2006-2023)",
+       x = "Year",
+       y = "Average Rent Price") +
+  theme_classic()
+
+ggsave(filename = "images/all_fmr_trends.png", plot = all_fmr_trends)
+print(all_fmr_trends)
+```
+
+We can see over the years there has been a consistent trend showing how the rent prices across the US has increased consistently with one another. Next we want to see how the trends vary when looking at individual regions.
+
+## Overall Trends Over Different US Regions
+
+```{r}
+
+Overall_west_trend <-FMR_all|>
+  filter(state_alpha == c("WA", "OR", "CA", "NV", "UT", "CO", "WY", "MT", "ID", "AK", "HI"))|>
+  group_by(Year)|>
+  summarise(avg_fmr = mean(c(fmr0,fmr1,fmr2,fmr3,fmr4)))|>
+  mutate(region = "West")
+
+Overall_midwest_trend <-FMR_all|>
+  filter(state_alpha == c("ND", "MN", "WI", "MI", "OH", "IN", "IL", "MO", "IA", "SD", "NE", "KS"))|>
+  group_by(Year)|>
+  summarise(avg_fmr = mean(c(fmr0,fmr1,fmr2,fmr3,fmr4)))|>
+  mutate(region = "Midwest")
+
+Overall_northeast_trend <-FMR_all|>
+  filter(state_alpha == c("ME","NH","MA","NY","VT","RI","CT","PA","NJ"))|>
+  group_by(Year)|>
+  summarise(avg_fmr = mean(c(fmr0,fmr1,fmr2,fmr3,fmr4)))|>
+  mutate(region = "Northeast")
+
+Overall_southwest_trend <-FMR_all|>
+  filter(state_alpha == c("AZ","NM","TX","OK"))|>
+  group_by(Year)|>
+  summarise(avg_fmr = mean(c(fmr0,fmr1,fmr2,fmr3,fmr4)))|>
+  mutate(region = "Southwest")
+
+Overall_southeast_trend <-FMR_all|>
+  filter(state_alpha == c("WV","DC","DE","VA","KY","TN","NC","SC","GA","FL","AL","MS","AR","LA", "MD"))|>
+  group_by(Year)|>
+  summarise(avg_fmr = mean(c(fmr0,fmr1,fmr2,fmr3,fmr4)))|>
+  mutate(region = "Southeast")
+
+Total_region_trends <- bind_rows(Overall_southeast_trend,Overall_southwest_trend, Overall_northeast_trend, Overall_midwest_trend, Overall_west_trend)
+
+total_region_trend <- ggplot(Total_region_trends, aes(x= Year, y = avg_fmr, color = region)) +
+  geom_line()+
+  geom_point()+
+  labs(title = "Standard Trend for Overall FMR Price for Different Regions (2006-2023)",
+       x = "Year",
+       y = "Average Rent Price") +
+  theme_classic()
+  
+print(total_region_trend)
+
+ggsave(filename = "images/total_region_trend.png", plot = total_region_trend)
+```
+
+## Overall Trends Over Different Metropolitan Counties
+
+```{r}
+FMR_metro_trend <- FMR_all |>
+  filter(metro == "metro")|>
+  group_by(Year)|>
+  summarize(avg_fmr = mean(c(fmr0, fmr1, fmr2,fmr3, fmr4)))|>
+  mutate(metro = "metro")
+  
+
+FMR_nonmetro_trend <- FMR_all |>
+  filter(!metro == "metro") |>
+  group_by(Year) |>
+  summarize(avg_fmr = mean(c(fmr0, fmr1, fmr2,fmr3, fmr4)))|>
+  mutate(metro = "not metro")
+
+Overall_metro_trends <- bind_rows(FMR_metro_trend, FMR_nonmetro_trend)
+
+total_metro_trend <- ggplot(Overall_metro_trends, aes(x=Year, y = avg_fmr, color = metro))+
+  geom_line()+
+  geom_point()+
+  labs(title = "Standard Trend for Overall FMR for Metropolitan Status (2006-2023)",
+       x = "Year",
+       y = "Average Rent Prices")+
+  theme_classic()
+
+print(total_metro_trend)
+ggsave(filename = "images/total_metro_trend.png", plot = total_metro_trend)
+```
+
+# Visualizing Data: Current State of FMR Market
+
+```{r}
+#| label: create data set so we can compare the FMRs of each state for each unit type 
+#will group by state and get the average of all fmr
+FMR_state_averages <- FMR_current |>
+  group_by(state_alpha)|>
+  summarise(
+    fmr0 = mean(fmr0),
+    fmr1 = mean(fmr1),
+    fmr2 = mean(fmr2),
+    fmr3 = mean(fmr3),
+    fmr4 = mean(fmr4)
+  )|>
+  arrange(fmr4)|>
+  pivot_longer(cols = starts_with("fmr"), names_to = "apartment_type", values_to = "average_fmr") 
+```
+
+```{r}
+#| label: Visualize data set for FMR_state average
+
+State_average_plot <-ggplot(FMR_state_averages, aes(x = state_alpha, y = average_fmr, fill= apartment_type)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Average Fair Market Rents (FMR) for Different Units by State",
+        x = "State",
+       y = "Average Fair Market Rent (FMR) Value") +
+  theme_classic()+
+  theme(axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "bottom",
+        legend.direction = "horizontal")
+ggsave(filename = "images/State_average_plot.png", plot = State_average_plot)
+
+```
+
+Now that i got the average rent prices for each unit type per state we can see the the three highest state with the highest fmr were DC (District of Columbia, Hawaii, and California)
+
+What i also want to see is how the 4 main regions play out; Northeast, Southwest, Midwest, and West
+
+```{r}
+#| make data sets for each major region of the united state
+
+FMR_west <- FMR_current|>
+  filter(state_alpha == c("WA", "OR", "CA", "NV", "UT", "CO", "WY", "MT", "ID", "AK", "HI"))|>
+  summarise(
+    fmr0 = mean(fmr0),
+    fmr1 = mean(fmr1),
+    fmr2 = mean(fmr2),
+    fmr3 = mean(fmr3),
+    fmr4 = mean(fmr4))|>
+  mutate(
+    Region = "West",
+  )|>
+  pivot_longer(cols = starts_with("fmr"), names_to = "apartment_type", values_to = "average_fmr")
+
+FMR_midwest <- FMR_current |>
+  filter(state_alpha == c("ND", "MN", "WI", "MI", "OH", "IN", "IL", "MO", "IA", "SD", "NE", "KS"))|>
+  summarise(
+    fmr0 = mean(fmr0),
+    fmr1 = mean(fmr1),
+    fmr2 = mean(fmr2),
+    fmr3 = mean(fmr3),
+    fmr4 = mean(fmr4))|>
+  mutate(
+    Region = "Midwest",
+  )|>
+  pivot_longer(cols = starts_with("fmr"), names_to = "apartment_type", values_to = "average_fmr")
+
+FMR_northeast <- FMR_current|>
+  filter(state_alpha == c("ME","NH","MA","NY","VT","RI","CT","PA","NJ"))|>
+  summarise(
+    fmr0 = mean(fmr0),
+    fmr1 = mean(fmr1),
+    fmr2 = mean(fmr2),
+    fmr3 = mean(fmr3),
+    fmr4 = mean(fmr4))|>
+  mutate(
+    Region = "Northeast",
+  )|>
+  pivot_longer(cols = starts_with("fmr"), names_to = "apartment_type", values_to = "average_fmr")
+
+FMR_southwest <- FMR_current|>
+  filter(state_alpha == c("AZ","NM","TX","OK"))|>
+  summarise(
+    fmr0 = mean(fmr0),
+    fmr1 = mean(fmr1),
+    fmr2 = mean(fmr2),
+    fmr3 = mean(fmr3),
+    fmr4 = mean(fmr4))|>
+  mutate(
+    Region = "Southwest",
+  )|>
+  pivot_longer(cols = starts_with("fmr"), names_to = "apartment_type", values_to = "average_fmr")
+
+FMR_southeast <- FMR_current|>
+  filter(state_alpha == c("WV","DC","DE","VA","KY","TN","NC","SC","GA","FL","AL","MS","AR","LA", "MD"))|>
+  summarise(
+    fmr0 = mean(fmr0),
+    fmr1 = mean(fmr1),
+    fmr2 = mean(fmr2),
+    fmr3 = mean(fmr3),
+    fmr4 = mean(fmr4))|>
+  mutate(
+    Region = "Southeast",
+  ) |> pivot_longer(cols = starts_with("fmr"), names_to = "apartment_type", values_to = "average_fmr")
+
+fmr_regions <- bind_rows(FMR_midwest,FMR_west,FMR_southeast,FMR_southwest, FMR_northeast)
+```
+
+```{r}
+#| label: Visualize the data for the regions fmr values
+
+region_average_plot <-ggplot(fmr_regions, aes(x = Region, y = average_fmr, fill= apartment_type)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Average Fair Market Rents (FMR) for Different Units by Region",
+        x = "US Regions",
+       y = "Average Fair Market Rent (FMR) Value") +
+  theme_classic()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+print(region_average_plot)
+
+ggsave(filename = "images/Region_average_plot.png", plot = region_average_plot)
+
+```
+
+Now i want to compare the value of metropolitan areas to non-metropolitan areas
+
+```{r}
+#| label: create data set so we can compare the FMRs of metro and non-metro regions
+#will group by state and get the average of all fmr
+FMR_metro <- FMR_current |>
+  group_by(metro)|>
+  summarise(
+    fmr0 = mean(fmr0),
+    fmr1 = mean(fmr1),
+    fmr2 = mean(fmr2),
+    fmr3 = mean(fmr3),
+    fmr4 = mean(fmr4)
+  )|>
+  arrange(fmr4)|>
+  pivot_longer(cols = starts_with("fmr"), names_to = "apartment_type", values_to = "average_fmr") 
+```
+
+```{r}
+#| label: Visualize the data for the metro fmr values
+
+
+metro_average_plot <-ggplot(FMR_metro, aes(x = metro, y = average_fmr, fill= apartment_type)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Average Fair Market Rents (FMR) for Different Units by State",
+        x = "Metropolitan Status",
+       y = "Average Fair Market Rent (FMR) Value") +
+  theme_classic()+
+  theme(axis.text.x = element_text(hjust = 1))
+
+print(metro_average_plot)
+ggsave(filename = "images/metro_average_plot.png", plot = metro_average_plot)
+```
+
+# 

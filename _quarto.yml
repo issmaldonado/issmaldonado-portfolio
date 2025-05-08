@@ -8,10 +8,13 @@ website:
       - href: index.qmd
         text: Home
       - about.qmd
+      - Data_Wrangle.qmd
+      
 
 format:
   html:
-    theme: cosmo
+    theme: lux
+    backgroundcolor: "#D3D3D3"
     css: styles.css
     toc: true
 

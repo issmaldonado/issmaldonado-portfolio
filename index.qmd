@@ -1,11 +1,11 @@
 ---
-title: "issmaldonado-portfolio"
+title: "Assessing Fair Market Rent Prizes in the United States"
 ---
 
-This is a Quarto website.
+Welcome to our website, where we use fair market rent prices from the Office of Policy Development and Research (PD&R) tocharacterize the current state and visualize trends of rent prices across the United States. Fair Market Rent (FMR) is classified as the gross rent of a unit, including overall cost plus utilities. The average FMR is calculated for units with different numbers of bedrooms (zero to four) within every county in the United States. Additionally, the classification of each county as either residing in a metropolitan area or not is recorded.
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+Using the trends of FMR over the years and the metropolitan status of each county, we observe the overall status of rent prices across the US. We use data obtained between 2006 and 2023 to compare the cost of rent between states, regions, and metropolitan counties.
 
-```{r}
-1 + 1
-```
+To access data sets visit the [Office of Policy Development and Research](https://www.huduser.gov/portal/) or click [here](https://www.huduser.gov/portal/datasets/fmr.html#null) for a direct link to data sets.
+
+![](images/istockphoto-1405859427-612x612-01.jpg){fig-align="center"}
